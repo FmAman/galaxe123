@@ -1,0 +1,166 @@
+Spring
+---------------
+Bean - Object created,initialized and managed by IoC container,
+ A bean is an object that is instantiated, assembled, and otherwise managed by a Spring IoC container. Otherwise, a bean is simply one of many objects in your application.
+
+
+DI - Dependency Injection - dependency injection is a design pattern in which an object or function receives other objects or functions that it depends on
+
+
+IOC - Inversion of Control- Object is pushed whenever we require to use that object, IoC inverts the flow of control as compared to traditional control flow.
+
+
+Spring(Lot of confirguration)
+SpringBoot (Zero Config)
+
+@Autowired - Asking/Calls to inject the bean[scan and try to obect/beans] 
+
+@Component
+@Service
+@Controller
+@RestController
+@Repository
+
+
+product-app-final1
+
+SpringWeb
+SpringBoot devtools
+Spring data JPA(Java Persistance API)
+Mysql Driver
+
+
+REST 
+-Returns JSON type of file
+-----------------------------------
+Parameter in REST - 
+@PathVariable
+@RequestBody - Request Object from rest Api and should be JSON
+
+
+HTTP Methods:-
+GET - Retrieve
+PUSH - Create/Insert
+PUT - Update
+DELETE - Delete
+
+Combination of same method and url should not be there
+
+
+--------------------------------------------
+JPA (Java Persistance API)
+__________________________
+JPA Key
+Lombok
+
+security dependency
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+MVC - Model View Controller
+Step 1: Create spring starter project - web,lombok,devtools - dependencies
+
+
+
+Step 2: Update pom.xml
+
+<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+
+		<!-- Tomcat for JSP rendering -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+Step 3 : Update application.properties
+
+spring.mvc.view.prefix=/WEB-INF/views/
+spring.mvc.view.suffix=.jsp
+
+Step 4:
+** Right click on your project - create folder in the path mentioned below.
+Create the above folder /src/main/webapp/WEB-INF/views/
+  
+  
+Step 5: Create HomeController and LoginController
+
+using rest controller
+package com.training.pms.galaxe.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeController {
+
+	@RequestMapping("/hello")					//localhost:9094/hello
+	public String hello() {
+		return "Hello and welcome to my APP";
+	}
+	
+}
+
+
+---------
+
+using controller
+package com.training.pms.galaxe.controller;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+@Controller			//VIEWS
+public class LoginController {
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)			//localhost:9094/login
+	public String login(Model model, String error, String logout) {
+		if (error != null)
+			model.addAttribute("errorMsg", "Your username and password are invalid.");
+
+		if (logout != null)
+			model.addAttribute("msg", "You have been logged out successfully.");
+
+		return "login";	//VIEW				//  /WEB-INF/views/login.jsp
+	}
+	
+	@RequestMapping(value = "/ahmed", method = RequestMethod.GET)			//localhost:9094/ahmed
+	public String ahmed() {
+		return "galaxe";					//  /WEB-INF/views/galaxe.jsp
+	}
+
+	@RequestMapping(value = "/shubham", method = RequestMethod.GET)			//localhost:9094/shubham
+	public String doWork() {
+		return "mobile";					//  /WEB-INF/views/mobile.jsp
+	}
+	
+	@GetMapping			//	http://localhost:9094			
+	public String doWork2() {
+		return "index";					//  /WEB-INF/views/index.jsp
+	}
+	
+	@RequestMapping(value = "/akshay", method = RequestMethod.GET)			//localhost:9094/shubham
+	public String akshay() {
+		return "akshay";					//  /WEB-INF/views/akshay.jsp
+	}
+}
+
+Step 6 : Create jsp pages
